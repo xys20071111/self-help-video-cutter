@@ -1,9 +1,9 @@
 {
-	"dbhost": "192.168.2.1",
+	"dbhost": "localhost",
 	"db": "videocutter",
-	"password": "576984ae0299225652ce15f1acbf9bd2",
+	"password": "this_is_a_secret",
 	"username": "videocutter",
-	"recordDir": "/mnt/nfs_data/recorder/25755118-尾幼mayori",
-	"outputDir": "./",
+	"recordDir": "path/to/records",
+	"outputDir": "path/to/outputs",
 	"port": 8313
 }
