@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>自助粗剪服务</title>
+	<style>
+		body {
+			text-align: center;
+			margin: 0 auto;
+		}
+
+		table {
+			margin: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<h3>自助粗剪服务</h3>
+	<div id="createTask">
+		<label for="filename">录播名</label><br />
+		<input id="filename" type="text" required /><br />
+		<label for="start">开始时间（格式 时:分:秒 全部不可省略）</label><br />
+		<input id="start" type="text" required /><br />
+		<label for="length">结束时间（格式 时:分:秒 全部不可省略）</label><br />
+		<input id="length" type="text" required /><br />
+		<label for="title-input">视频标题</label><br />
+		<input id="title-input" required /><br />
+		<button id="submit">提交</button><br />
+		当前任务id:<span id="currentTaskID"></span>
+	</div>
+	<br />
+
+	<div>
+		<label for="taskID">任务ID</label>
+		<input id="taskID" />
+		<button id="checkStatus">查询</button><br />
+		当前状态:<span id="status"></span>&nbsp;<a id="download" hidden>点我下载</a>
+	</div>
+	<br />
+
+	<div>
+		当前可用录播列表:<br />
+		<table id="fileList" border="1">
+			<tr>
+				<th>文件名</th>
+				<th>大小(GiB)</th>
+				<th>时长(小时)</th>
+			</tr>
+		</table>
+	</div>
+	<br />
+
+	<div>
+		<a id="show-all-tasks" href="showAllTasks.html">查看全部任务</a><br>
+		最近任务列表:<br />
+		<table id="recentlyTaskList" border="1">
+			<tr>
+				<th>标题</th>
+				<th>录播</th>
+				<th>起始</th>
+				<th>结束</th>
+				<th>id</th>
+			</tr>
+		</table>
+	</div>
+
+	<script src="srcipt.js"></script>
+</body>
+
+</html>
