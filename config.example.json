@@ -1,0 +1,9 @@
+{
+	"dbhost": "localhost",
+	"db": "videocutter",
+	"password": "this_is_a_secret",
+	"username": "videocutter",
+	"recordDir": "path/to/records",
+	"outputDir": "path/to/outputs",
+	"port": 8313
+}
