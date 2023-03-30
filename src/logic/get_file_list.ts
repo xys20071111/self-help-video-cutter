@@ -13,7 +13,7 @@ export async function getFileList (ctx: Context) {
     const files = await Deno.readDir(config.recordDir)
     const fileInfo: Array<FileInfo> = []
     for await (const file of files) {
-        if(file.isFile && (file.name.endsWith('.flv') || file.name.endsWith('.mp4'))) {
+        if(file.isFile && (file.name.endsWith('.flv') || file.name.endsWith('.mp4') || file.name.endsWith('.m3u8'))) {
             const filename = file.name
             const info = await Deno.stat(`${config.recordDir}/${filename}`)
             const ffprobe = Deno.run({
