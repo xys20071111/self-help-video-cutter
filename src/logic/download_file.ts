@@ -1,6 +1,7 @@
 import { Context } from '../deps.ts'
 import { client } from '../db.ts'
 import { config } from '../config.ts'
+import { encodeUrl } from 'https://deno.land/x/oak@v11.1.0/util.ts'
 
 export async function downloadFile (ctx: Context) {
     const { request, response } = ctx
@@ -26,7 +27,7 @@ export async function downloadFile (ctx: Context) {
     try {
         const file = await Deno.open(`${config.outputDir}/${taskID}.mp4`)
         response.headers.append('Content-Type', 'application/download')
-        response.headers.append('Content-Disposition', `attachment;filename=${result.rows[0].title}.mp4`)
+        response.headers.append('Content-Disposition', `attachment;filename=${encodeURI(result.rows[0].title)}.mp4`)
         response.body = file
     } catch {
         response.body = { code: -1, msg: '文件已从硬盘清除' }
