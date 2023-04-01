@@ -1,10 +1,10 @@
 'use strict'
 
 const taskIDInput = document.getElementById('taskID')
+const currentRecord = document.getElementById('currentRecord')
 const taskStatus = document.getElementById('status')
 const checkStatus = document.getElementById('checkStatus')
 const download = document.getElementById('download')
-const filename = document.getElementById('filename')
 const title = document.getElementById('title-input')
 const startAt = document.getElementById('start')
 const length = document.getElementById('length')
@@ -12,10 +12,27 @@ const currentTaskID = document.getElementById('currentTaskID')
 const submitButton = document.getElementById('submit')
 const fileList = document.getElementById('fileList')
 const taskList = document.getElementById('recentlyTaskList')
+
+let filename = ''
+let dirIndex = 0
 // 创建任务
 
+function setRecord(f, d) {
+	filename = f
+	dirIndex = d
+	currentRecord.innerText = f
+}
+
 function createTask() {
-	fetch(`/api/addTask?src=${filename.value}&start=${startAt.value}&length=${length.value}&title=${title.value}`)
+	if(!filename || !dirIndex ) {
+		alert('没有设置录播')
+		return
+	}
+	if(startAt.value.length === 0 && length.value.length === 0 && title.value.length === 0) {
+		alert('有参数没填')
+		return
+	}
+	fetch(`/api/addTask?src=${filename}&start=${startAt.value}&length=${length.value}&title=${title.value}&dirIndex=${dirIndex}`)
 		.then(res => {
 			if (res.ok) {
 				return res.json()
@@ -78,12 +95,19 @@ fetch('/api/getFileList')
 		}
 	})
 	.then(data => {
-		data.files.reverse()
+		console.log(data)
 		for (const f of data.files) {
 			const row = document.createElement('tr')
 			const duration = document.createElement('td')
 			const size = document.createElement('td')
 			const name = document.createElement('td')
+			const operation = document.createElement('td')
+			const apply = document.createElement('button')
+			apply.addEventListener('click', () => {
+				setRecord(f.name, f.dirIndex)
+			})
+			apply.innerText = "使用"
+			operation.appendChild(apply)
 			const duration_total = parseInt(f.duration)
 			const duration_hours = (duration_total / 3600).toFixed(0)
 			const duration_minutes = (duration_total / 60 % 60).toFixed(0)
@@ -94,6 +118,7 @@ fetch('/api/getFileList')
 			row.appendChild(name)
 			row.appendChild(size)
 			row.appendChild(duration)
+			row.appendChild(operation)
 			fileList.appendChild(row)
 		}
 	})

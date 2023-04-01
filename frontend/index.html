@@ -18,8 +18,8 @@
 <body>
 	<h3>自助粗剪服务</h3>
 	<div id="createTask">
-		<label for="filename">录播名</label><br />
-		<input id="filename" type="text" required /><br />
+		<span>当前使用的录播</span><br>
+		<span id="currentRecord"></span><br>
 		<label for="start">开始时间（格式 时:分:秒 全部不可省略）</label><br />
 		<input id="start" type="text" required /><br />
 		<label for="length">结束时间（格式 时:分:秒 全部不可省略）</label><br />
@@ -46,6 +46,7 @@
 				<th>文件名</th>
 				<th>大小(GiB)</th>
 				<th>时长(小时)</th>
+				<th>操作</th>
 			</tr>
 		</table>
 	</div>

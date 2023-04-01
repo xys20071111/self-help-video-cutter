@@ -4,7 +4,7 @@ interface IConfig {
 	db: string
 	username: string
 	password: string
-	recordDir: string
+	recordDir: Array<string>
 	outputDir: string
 }
 
