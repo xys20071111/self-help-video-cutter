@@ -6,6 +6,7 @@ interface IConfig {
 	password: string
 	recordDir: Array<string>
 	outputDir: string
+	hostname?: string
 }
 
 const decorder = new TextDecoder()

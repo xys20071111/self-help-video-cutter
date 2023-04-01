@@ -15,5 +15,5 @@ await client.queryObject(`CREATE TABLE IF NOT EXISTS tasklist(
 
 app.listen({
     port: config.port,
-    hostname: '[::]'
+    hostname: config.hostname
 })
