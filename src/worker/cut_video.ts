@@ -19,12 +19,12 @@ self.onmessage = (e) => {
 }
 
 console.log('启动剪辑worker')
-setInterval(() => {
+setInterval(async () => {
     if (taskQueue.length === 0) {
         return
     }
     const msg: IMsg = taskQueue[0]
-    client.queryObject('INSERT INTO public.tasklist(fileid, src, starttime, endtime, dst, title, status) VALUES($1,$2,$3,$4,$5,$6,0)', [msg.uuid, msg.input, msg.start, msg.end, `${msg.uuid}.mp4`, msg.title])
+    await client.queryObject('INSERT INTO public.tasklist(fileid, src, starttime, endtime, dst, title, status) VALUES($1,$2,$3,$4,$5,$6,0)', [msg.uuid, msg.input, msg.start, msg.end, `${msg.uuid}.mp4`, msg.title])
     const task = Deno.run({
         cmd: ['ffmpeg',
             '-ss', msg.start,
@@ -35,13 +35,11 @@ setInterval(() => {
         stderr: 'null',
         stdout: 'null'
     })
-    task.status().then((taskStatus) => {
-        if (taskStatus.code === 0) {
-            client.queryObject('UPDATE tasklist SET status=1 WHERE fileid=$1', [msg.uuid])
-        } else {
-            client.queryObject('UPDATE tasklist SET status=2 WHERE fileid=$2', [msg.uuid])
-        }
-
-    })
+    const taskStatus = await task.status()
+    if (taskStatus.code === 0) {
+        await client.queryObject('UPDATE tasklist SET status=1 WHERE fileid=$1', [msg.uuid])
+    } else {
+        await client.queryObject('UPDATE tasklist SET status=2 WHERE fileid=$1', [msg.uuid])
+    }
     taskQueue.splice(0, 1)
 }, 200)

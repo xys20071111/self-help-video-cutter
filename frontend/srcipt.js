@@ -14,7 +14,7 @@ const fileList = document.getElementById('fileList')
 const taskList = document.getElementById('recentlyTaskList')
 
 let filename = ''
-let dirIndex = 0
+let dirIndex = -1
 // 创建任务
 
 function setRecord(f, d) {
@@ -24,7 +24,7 @@ function setRecord(f, d) {
 }
 
 function createTask() {
-	if(!filename || !dirIndex ) {
+	if(!filename || dirIndex < 0 ) {
 		alert('没有设置录播')
 		return
 	}
