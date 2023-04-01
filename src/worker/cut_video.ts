@@ -1,9 +1,7 @@
 /// <reference no-default-lib="true" />
 /// <reference lib="deno.worker" />
 
-import { PostgresError } from '../deps.ts'
 import { client } from '../db.ts'
-import { reset } from 'https://deno.land/std@0.152.0/fmt/colors.ts'
 
 interface IMsg {
     title: string
