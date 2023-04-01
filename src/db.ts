@@ -13,13 +13,3 @@ export const client = new PostgresClient({
 })
 
 await client.connect()
-await client.queryObject(`CREATE TABLE IF NOT EXISTS tasklist(
-    ID SERIAL PRIMARY KEY,
-    fileID VARCHAR(40) NOT NULL,
-    src VARCHAR(255) NOT NULL,
-    startTime VARCHAR(128) NOT NULL,
-    endTime VARCHAR(128) NOT NULL,
-    dst VARCHAR(255) NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    status INT NOT NULL
-)`)

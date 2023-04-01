@@ -1,7 +1,6 @@
 import { Context } from '../deps.ts'
 import { client } from '../db.ts'
 import { config } from '../config.ts'
-import { encodeUrl } from 'https://deno.land/x/oak@v11.1.0/util.ts'
 
 export async function downloadFile (ctx: Context) {
     const { request, response } = ctx
