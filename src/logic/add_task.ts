@@ -27,4 +27,8 @@ export async function addTask(ctx: Context) {
         input: `${config.recordDir[dirIndex]}/${src as string}`,
         output: `${config.outputDir}/${taskID}.mp4`
     })
+    taskWorker.addEventListener('message', (e) => {
+        console.error('警告：任务出错')
+        console.error(e.data)
+    })
 }
