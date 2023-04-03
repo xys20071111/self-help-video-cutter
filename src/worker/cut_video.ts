@@ -25,6 +25,7 @@ setInterval(async () => {
         return
     }
     const msg: IMsg = taskQueue[0]
+    taskQueue.splice(0, 1)
     await client.queryObject('INSERT INTO public.tasklist(fileid, src, starttime, endtime, dst, title, status) VALUES($1,$2,$3,$4,$5,$6,0)', [msg.uuid, msg.input, msg.start, msg.end, `${msg.uuid}.mp4`, msg.title])
     const task = Deno.run({
         cmd: [
@@ -45,5 +46,4 @@ setInterval(async () => {
         postMessage(decoder.decode(await task.stderrOutput()))
         await client.queryObject('UPDATE tasklist SET status=2 WHERE fileid=$1', [msg.uuid])
     }
-    taskQueue.splice(0, 1)
 }, 200)
