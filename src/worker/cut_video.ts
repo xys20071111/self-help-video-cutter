@@ -27,9 +27,8 @@ setInterval(async () => {
     const msg: IMsg = taskQueue[0]
     taskQueue.splice(0, 1)
     await client.queryObject('INSERT INTO public.tasklist(fileid, src, starttime, endtime, dst, title, status) VALUES($1,$2,$3,$4,$5,$6,0)', [msg.uuid, msg.input, msg.start, msg.end, `${msg.uuid}.mp4`, msg.title])
-    const task = Deno.run({
-        cmd: [
-            'ffmpeg',
+    const task = new Deno.Command('/usr/bin/ffmpeg', {
+        args: [
             '-ss', msg.start,
             '-to', msg.end,
             '-i', msg.input,
@@ -39,11 +38,12 @@ setInterval(async () => {
         stderr: 'piped',
         stdout: 'null'
     })
-    const taskStatus = await task.status()
+    const taskProgess = task.spawn()
+    const taskStatus = await taskProgess.status
     if (taskStatus.code === 0) {
         await client.queryObject('UPDATE tasklist SET status=1 WHERE fileid=$1', [msg.uuid])
     } else {
-        postMessage(decoder.decode(await task.stderrOutput()))
+        postMessage(decoder.decode((await taskProgess.stderr.getReader().read()).value))
         await client.queryObject('UPDATE tasklist SET status=2 WHERE fileid=$1', [msg.uuid])
     }
 }, 200)
