@@ -1,12 +1,12 @@
-import { PostgresClient } from './deps.ts'
+import { Client } from 'postgres'
 import { config } from './config.ts'
 
-export const client = new PostgresClient({
+export const client = new Client({
     user: config.username,
     password: config.password,
     database: config.db,
     hostname: config.dbhost,
-    port: 5432,
+    port: config.dbport,
     tls: {
         enabled: false
     }

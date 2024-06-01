@@ -1,4 +1,4 @@
-import { Context } from '../deps.ts'
+import { Context } from 'oak'
 import { config } from '../config.ts'
 import { filterInt } from '../utils/filter_int.ts'
 
@@ -14,8 +14,8 @@ export async function addTask(ctx: Context) {
     const dirIndexString = query.get('dirIndex')
     const dirIndex = filterInt(dirIndexString)
     if (!src || !start || !length || !title || !dirIndexString || isNaN(dirIndex) || src.length === 0 || start.length === 0 || length.length === 0 || dirIndexString.length === 0) {
-        response.body = { code: -1, msg: '非法参数' };
-        return;
+        response.body = { code: -1, msg: '非法参数' }
+        return
     }
     const taskID = crypto.randomUUID()
     response.body = { code: 0, msg: taskID }

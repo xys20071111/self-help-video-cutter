@@ -1,4 +1,4 @@
-import { Application, Router, send } from './deps.ts'
+import { Application, Router, send } from 'oak'
 import { client } from './db.ts'
 import { addTask } from './logic/add_task.ts'
 import { getFileList } from './logic/get_file_list.ts'
@@ -19,7 +19,7 @@ router.get('/api/getRecentlyTasks', getRecentlyTasks)
 router.get('/api/getAllTasks', getAllTasks)
 
 app.use(async (_, next) => {
-    if(!client.connected) {
+    if (!client.connected) {
         await client.connect()
     }
     await next()

@@ -7,6 +7,7 @@ interface IConfig {
 	recordDir: Array<string>
 	outputDir: string
 	hostname?: string
+	dbport: number
 }
 
 const decorder = new TextDecoder()

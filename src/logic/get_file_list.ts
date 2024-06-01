@@ -1,5 +1,5 @@
 import { config } from '../config.ts'
-import { Context } from '../deps.ts'
+import { Context } from 'oak'
 
 interface FileInfo {
     dirIndex: number
