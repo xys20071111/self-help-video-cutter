@@ -3,6 +3,7 @@
 
 import { client } from '../db.ts'
 import { BliveM3u8Parser } from "../utils/blive_m3u8_parser.ts"
+import { mergeReadableStreams } from "@std/streams"
 
 const ENDLIST = new Uint8Array([
     35, 69, 88, 84, 45, 88,
@@ -96,15 +97,14 @@ setInterval(async () => {
                 '-c:v', 'copy', '-c:a', 'copy',
                 msg.output
             ],
-            stderr: 'null',
-            stdout: 'null'
+            stderr: 'piped',
+            stdout: 'piped'
         })
-        const taskProgess = task.spawn()
-        const taskStatus = await taskProgess.status
+        const taskStatus = await task.output()
         if (taskStatus.code === 0) {
             await client.queryObject('UPDATE tasklist SET status=1 WHERE fileid=$1', [msg.uuid])
         } else {
-            postMessage(decoder.decode((await taskProgess.stderr.getReader().read()).value))
+            postMessage(decoder.decode(taskStatus.stderr))
             await client.queryObject('UPDATE tasklist SET status=2 WHERE fileid=$1', [msg.uuid])
         }
     } else {
@@ -116,15 +116,17 @@ setInterval(async () => {
                 '-c:v', 'copy', '-c:a', 'copy',
                 msg.output
             ],
-            stderr: 'piped',
-            stdout: 'null'
+            stderr: 'inherit',
+            stdout: 'inherit',
+            stdin: 'inherit'
         })
         const taskProgess = task.spawn()
-        const taskStatus = await taskProgess.status
+        const taskStatus = await taskProgess.output()
+        // const taskStatus = await taskProgess.status
         if (taskStatus.code === 0) {
+            postMessage(decoder.decode(taskStatus.stderr))
             await client.queryObject('UPDATE tasklist SET status=1 WHERE fileid=$1', [msg.uuid])
         } else {
-            postMessage(decoder.decode((await taskProgess.stderr.getReader().read()).value))
             await client.queryObject('UPDATE tasklist SET status=2 WHERE fileid=$1', [msg.uuid])
         }
     }
