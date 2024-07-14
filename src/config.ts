@@ -7,7 +7,8 @@ interface IConfig {
 	recordDir: Array<string>
 	outputDir: string
 	hostname?: string
-	dbport: number
+	dbport: number,
+	ffmpegPath?: string
 }
 
 const decorder = new TextDecoder()

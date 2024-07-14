@@ -1,6 +1,7 @@
 /// <reference no-default-lib="true" />
 /// <reference lib="deno.worker" />
 
+import { config } from "../config.ts"
 import { client } from '../db.ts'
 import { BliveM3u8Parser } from "../utils/blive_m3u8_parser.ts"
 import { mergeReadableStreams } from "@std/streams"
@@ -91,7 +92,7 @@ setInterval(async () => {
             await Deno.writeFile(tmpFile, encoder.encode(`#EXTINF:${clip.info.length},422ce|b020c7c5\n${clip.filename}\n`), { append: true })
         }
         await Deno.writeFile(tmpFile, ENDLIST, { append: true })
-        const task = await new Deno.Command('/usr/bin/ffmpeg', {
+        const task = await new Deno.Command(config.ffmpegPath || '/usr/bin/ffmpeg', {
             args: [
                 '-i', tmpFile,
                 '-c:v', 'copy', '-c:a', 'copy',
