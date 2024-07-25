@@ -18,21 +18,15 @@ router.get('/api/downloadFile', downloadFile)
 router.get('/api/getRecentlyTasks', getRecentlyTasks)
 router.get('/api/getAllTasks', getAllTasks)
 
-app.use(async (_, next) => {
-    if (!client.connected) {
-        await client.connect()
-    }
-    await next()
-})
 app.use(router.allowedMethods())
 app.use(router.routes())
 app.use(async (ctx, next) => {
-    try {
-        await send(ctx, ctx.request.url.pathname, {
-            root: `${Deno.cwd()}/frontend`,
-            index: 'index.html'
-        })
-    } catch {
-        await next()
-    }
+	try {
+		await send(ctx, ctx.request.url.pathname, {
+			root: `${Deno.cwd()}/frontend`,
+			index: 'index.html',
+		})
+	} catch {
+		await next()
+	}
 })

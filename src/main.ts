@@ -2,7 +2,7 @@ import { app } from './app.ts'
 import { config } from './config.ts'
 import { client } from './db.ts'
 
-await client.queryObject(`CREATE TABLE IF NOT EXISTS tasklist(
+await client`CREATE TABLE IF NOT EXISTS tasklist(
     ID SERIAL PRIMARY KEY,
     fileID VARCHAR(40) NOT NULL,
     src VARCHAR(255) NOT NULL,
@@ -11,9 +11,9 @@ await client.queryObject(`CREATE TABLE IF NOT EXISTS tasklist(
     dst VARCHAR(255) NOT NULL,
     title VARCHAR(255) NOT NULL,
     status INT NOT NULL
-)`)
+)`
 
 app.listen({
-    port: config.port,
-    hostname: config.hostname
+	port: config.port,
+	hostname: config.hostname,
 })
