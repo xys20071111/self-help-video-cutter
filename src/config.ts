@@ -1,13 +1,8 @@
 interface IConfig {
 	port: number
-	dbhost: string
-	db: string
-	username: string
-	password: string
 	recordDir: Array<string>
 	outputDir: string
 	hostname?: string
-	dbport: number,
 	ffmpegPath?: string
 }
 

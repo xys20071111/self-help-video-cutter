@@ -1,35 +1,99 @@
 {
-  "version": "3",
-  "packages": {
-    "specifiers": {
-      "jsr:@std/bytes@^1.0.0-rc.3": "jsr:@std/bytes@1.0.0",
-      "jsr:@std/io@^0.224.1": "jsr:@std/io@0.224.1",
-      "jsr:@std/streams@^0.224.5": "jsr:@std/streams@0.224.5",
-      "npm:postgres": "npm:postgres@3.4.4"
+  "version": "4",
+  "specifiers": {
+    "jsr:@oak/commons@1": "1.0.0",
+    "jsr:@oak/oak@*": "17.1.3",
+    "jsr:@std/assert@1": "1.0.7",
+    "jsr:@std/bytes@1": "1.0.0",
+    "jsr:@std/bytes@^1.0.0-rc.3": "1.0.0",
+    "jsr:@std/crypto@1": "1.0.3",
+    "jsr:@std/encoding@1": "1.0.5",
+    "jsr:@std/encoding@^1.0.5": "1.0.5",
+    "jsr:@std/http@1": "1.0.9",
+    "jsr:@std/io@0.224": "0.224.1",
+    "jsr:@std/io@~0.224.1": "0.224.1",
+    "jsr:@std/media-types@1": "1.0.3",
+    "jsr:@std/path@1": "1.0.8",
+    "jsr:@std/streams@~0.224.5": "0.224.5",
+    "npm:@types/node@*": "22.5.0",
+    "npm:path-to-regexp@6.2.1": "6.2.1"
+  },
+  "jsr": {
+    "@oak/commons@1.0.0": {
+      "integrity": "49805b55603c3627a9d6235c0655aa2b6222d3036b3a13ff0380c16368f607ac",
+      "dependencies": [
+        "jsr:@std/assert",
+        "jsr:@std/bytes@1",
+        "jsr:@std/crypto",
+        "jsr:@std/encoding@1",
+        "jsr:@std/http",
+        "jsr:@std/media-types"
+      ]
     },
-    "jsr": {
-      "@std/bytes@1.0.0": {
-        "integrity": "9392e72af80adccaa1197912fa19990ed091cb98d5c9c4344b0c301b22d7c632"
-      },
-      "@std/io@0.224.1": {
-        "integrity": "73de242551a5c0965eb33e36b1fc7df4834ffbc836a1a643a410ccd11253d6be",
-        "dependencies": [
-          "jsr:@std/bytes@^1.0.0-rc.3"
-        ]
-      },
-      "@std/streams@0.224.5": {
-        "integrity": "bcde7818dd5460d474cdbd674b15f6638b9cd73cd64e52bd852fba2bd4d8ec91",
-        "dependencies": [
-          "jsr:@std/bytes@^1.0.0-rc.3",
-          "jsr:@std/io@^0.224.1"
-        ]
-      }
+    "@oak/oak@17.1.3": {
+      "integrity": "d89296c22db91681dd3a2a1e1fd14e258d0d5a9654de55637aee5b661c159f33",
+      "dependencies": [
+        "jsr:@oak/commons",
+        "jsr:@std/assert",
+        "jsr:@std/bytes@1",
+        "jsr:@std/crypto",
+        "jsr:@std/http",
+        "jsr:@std/io@0.224",
+        "jsr:@std/media-types",
+        "jsr:@std/path",
+        "npm:path-to-regexp"
+      ]
     },
-    "npm": {
-      "postgres@3.4.4": {
-        "integrity": "sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==",
-        "dependencies": {}
-      }
+    "@std/assert@1.0.7": {
+      "integrity": "64ce9fac879e0b9f3042a89b3c3f8ccfc9c984391af19e2087513a79d73e28c3"
+    },
+    "@std/bytes@1.0.0": {
+      "integrity": "9392e72af80adccaa1197912fa19990ed091cb98d5c9c4344b0c301b22d7c632"
+    },
+    "@std/crypto@1.0.3": {
+      "integrity": "a2a32f51ddef632d299e3879cd027c630dcd4d1d9a5285d6e6788072f4e51e7f"
+    },
+    "@std/encoding@1.0.5": {
+      "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
+    },
+    "@std/http@1.0.9": {
+      "integrity": "d409fc319a5e8d4a154e576c758752e9700282d74f31357a12fec6420f9ecb6c",
+      "dependencies": [
+        "jsr:@std/encoding@^1.0.5"
+      ]
+    },
+    "@std/io@0.224.1": {
+      "integrity": "73de242551a5c0965eb33e36b1fc7df4834ffbc836a1a643a410ccd11253d6be",
+      "dependencies": [
+        "jsr:@std/bytes@^1.0.0-rc.3"
+      ]
+    },
+    "@std/media-types@1.0.3": {
+      "integrity": "b12d30a7852f7578f4d210622df713bbfd1cbdd9b4ec2eaf5c1845ab70bab159"
+    },
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    },
+    "@std/streams@0.224.5": {
+      "integrity": "bcde7818dd5460d474cdbd674b15f6638b9cd73cd64e52bd852fba2bd4d8ec91",
+      "dependencies": [
+        "jsr:@std/bytes@^1.0.0-rc.3",
+        "jsr:@std/io@~0.224.1"
+      ]
+    }
+  },
+  "npm": {
+    "@types/node@22.5.0": {
+      "integrity": "sha512-DkFrJOe+rfdHTqqMg0bSNlGlQ85hSoh2TPzZyhHsXnMtligRWpxUySiyw8FY14ITt24HVCiQPWxS3KO/QlGmWg==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
+    "path-to-regexp@6.2.1": {
+      "integrity": "sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw=="
+    },
+    "undici-types@6.19.8": {
+      "integrity": "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
     }
   },
   "remote": {
@@ -347,8 +411,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/streams@^0.224.5",
-      "npm:postgres"
+      "jsr:@oak/oak@*",
+      "jsr:@std/streams@~0.224.5"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "imports": {
     "@std/streams": "jsr:@std/streams@^0.224.5",
-    "oak": "https://deno.land/x/oak@v13.0.0/mod.ts",
-    "postgres": "npm:postgres"
-  }
+    "oak": "jsr:@oak/oak"
+  },
+  "unstable": ["kv"]
 }

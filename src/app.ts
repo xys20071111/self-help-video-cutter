@@ -1,5 +1,4 @@
 import { Application, Router, send } from 'oak'
-import { client } from './db.ts'
 import { addTask } from './logic/add_task.ts'
 import { getFileList } from './logic/get_file_list.ts'
 import { getTaskStatus } from './logic/get_task_status.ts'

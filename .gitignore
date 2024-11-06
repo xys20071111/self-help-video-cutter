@@ -1,3 +1,5 @@
 main
 config.json
 *.mp4
+*.sqlite*
+

@@ -1,5 +1,6 @@
 import { Context } from 'oak'
 import { client } from '../db.ts'
+import { ITask } from "../task_interface.ts";
 
 export async function getTaskStatus(ctx: Context) {
 	const { request, response } = ctx
@@ -10,10 +11,10 @@ export async function getTaskStatus(ctx: Context) {
 		return
 	}
 	const result =
-		await client`SELECT status FROM tasklist WHERE fileid=${taskID}`
-	if (result.length === 0) {
+		await client.get<ITask>(['clip', taskID])
+	if (!result.value) {
 		response.body = { code: -1, msg: '无此任务' }
 		return
 	}
-	response.body = { code: 0, msg: result[0].status }
+	response.body = { code: 0, msg: result.value.status }
 }

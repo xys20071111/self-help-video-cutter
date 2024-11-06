@@ -141,10 +141,10 @@ fetch('/api/getRecentlyTasks')
 			const startTime = document.createElement('td')
 			const endTime = document.createElement('td')
 			const title = document.createElement('td')
-			id.innerText = item.fileid
-			src.innerText = item.src
-			startTime.innerText = item.starttime
-			endTime.innerText = item.endtime
+			id.innerText = item.uuid
+			src.innerText = item.input
+			startTime.innerText = item.start
+			endTime.innerText = item.end
 			title.innerText = item.title
 			row.appendChild(title)
 			row.appendChild(src)

@@ -1,6 +1,7 @@
 import { Context } from 'oak'
 import { client } from '../db.ts'
 import { config } from '../config.ts'
+import { ITask } from "../task_interface.ts";
 
 export async function downloadFile(ctx: Context) {
 	const { request, response } = ctx
@@ -10,17 +11,16 @@ export async function downloadFile(ctx: Context) {
 		response.body = { code: -1, msg: '非法参数' }
 		return
 	}
-	const result =
-		await client`SELECT dst,status,title FROM taskList WHERE fileid=${taskID}`
-	if (result.length == 0) {
+	const result = await client.get<ITask>(["clip", taskID])
+	if (!result.value) {
 		response.body = { code: -1, msg: '无此任务' }
 		return
 	}
-	if (result[0].status == 0) {
+	if (result.value.status == 0) {
 		response.body = { code: -1, msg: '任务未完成' }
 		return
 	}
-	if (result[0].status == 2) {
+	if (result.value.status == 2) {
 		response.body = { code: -1, msg: '任务失败' }
 		return
 	}
@@ -29,7 +29,7 @@ export async function downloadFile(ctx: Context) {
 		response.headers.append('Content-Type', 'application/download')
 		response.headers.append(
 			'Content-Disposition',
-			`attachment;filename=${encodeURI(result[0].title)}.mp4`,
+			`attachment;filename=${encodeURI(result.value.title)}.mp4`,
 		)
 		response.body = file
 	} catch {
