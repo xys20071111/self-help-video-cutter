@@ -24,15 +24,15 @@ function setRecord(f, d) {
 }
 
 function createTask() {
-	if(!filename || dirIndex < 0 ) {
+	if (!filename || dirIndex < 0) {
 		alert('没有设置录播')
 		return
 	}
-	if(startAt.value.length === 0 && length.value.length === 0 && title.value.length === 0) {
+	if (startAt.value.length === 0 && length.value.length === 0 && title.value.length === 0) {
 		alert('有参数没填')
 		return
 	}
-	fetch(`/api/addTask?src=${filename}&start=${startAt.value}&length=${length.value}&title=${title.value}&dirIndex=${dirIndex}`)
+	fetch(`/api/addTask?src=${encodeURIComponent(filename)}&start=${startAt.value}&length=${length.value}&title=${title.value}&dirIndex=${dirIndex}`)
 		.then(res => {
 			if (res.ok) {
 				return res.json()
@@ -126,15 +126,15 @@ fetch('/api/getFileList')
 // 获取最近任务
 fetch('/api/getRecentlyTasks')
 	.then(res => {
-		if(res.ok) {
+		if (res.ok) {
 			return res.json()
 		}
 	})
 	.then(data => {
-		if(data.code != 0) {
+		if (data.code != 0) {
 			return
 		}
-		for(const item of data.msg) {
+		for (const item of data.msg) {
 			const row = document.createElement('tr')
 			const id = document.createElement('td')
 			const src = document.createElement('td')
